@@ -1,0 +1,62 @@
+services:
+  #Base de datos PostgreSQL
+  postgres-cloud:
+    image: postgres:16-bookworm
+    container_name: campuscloud-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Puticerda13?
+      POSTGRES_DB: campuscloud
+    ports:
+      - "54320:5432"
+    volumes:
+      - campuscloud-postgres-data:/var/lib/postgresql/data
+    networks:
+      - campus-network
+  #Pgadmin    
+  pgadmin-cloud:
+    image: dpage/pgadmin4:6.17
+    container_name: campuscloud-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: Puticerda13?
+      PGADMIN_DEFAULT_EMAIL: 24300572@uttt.edu.mx
+    ports:
+      - "8083:80"
+    volumes:
+      - campuscloud-pgadmin-data:/var/lib/pgadmin
+    networks:
+      - campus-network
+  #SQL
+  sql-cloud:
+    image: mcr.microsoft.com/mssql/server:2025-CU8-ubuntu-24.04
+    container_name: campuscloud-sql
+    restart: always
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Puticerda13?
+    ports:
+      - "14330:1433"
+    volumes:
+      - campuscloud-sql-data:/var/opt/mssql
+    networks:
+      - campus-network
+
+# VOLUMENES
+volumes:
+  campuscloud-postgres-data:
+    external: true
+
+  campuscloud-pgadmin-data:
+    external: true
+
+  campuscloud-sql-data:
+    external: true
+
+#RED
+networks:
+  campus-network:
+    external: true
+
+

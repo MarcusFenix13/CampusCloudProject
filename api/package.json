@@ -1,0 +1,22 @@
+{
+  "name": "campuscloud-api",
+  "version": "1.0.0",
+  "description": "API REST para la integracion de servicios de datos de CampusCloud",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "author": "Marco A. Jimenez",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "mongodb": "^7.9.0"
+  }
+}

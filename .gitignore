@@ -1,2 +1,30 @@
+# Variables de entorno y secretos
 .env
+**/.env
+.env.*
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Archivos de registro y temporales
 *.log
+*.tmp
+
+# Volúmenes, datos locales y empaquetados
+**/data/
+*.zip
+
+# Dependencias de Node.js (API)
+node_modules/
+
+# Resultados de pruebas
+coverage/
+
+# Notas personales
+notasgenerales.md
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+*.tar

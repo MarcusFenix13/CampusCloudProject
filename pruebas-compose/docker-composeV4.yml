@@ -1,0 +1,68 @@
+services:
+  #Base de datos PostgreSQL
+  postgres-cloud:
+    image: postgres:16-bookworm
+    container_name: campuscloud-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - campuscloud-net
+  #Pgadmin    
+  pgadmin-cloud:
+    image: dpage/pgadmin4:6.17
+    container_name: campuscloud-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    depends_on:
+      - postgres-cloud  
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - campuscloud-net
+  #SQL
+  sql-cloud:
+    image: mcr.microsoft.com/mssql/server:2025-CU8-ubuntu-24.04
+    container_name: campuscloud-sql
+    restart: always
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    ports:
+      - "${MSSQL_PORT}:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+    networks:
+      - campuscloud-net
+
+# VOLUMENES
+volumes:
+  postgres-data:
+    external: true
+    name: ${POSTGRES_VOLUME}
+
+  pgadmin-data:
+    external: true
+    name: ${PGADMIN_VOLUME}
+
+  sql-data:
+    external: true
+    name: ${SQLSERVER_VOLUME}
+
+#RED
+networks:
+  campuscloud-net:
+    external: true
+    name: ${DOCKER_NETWORK}
+
+
